@@ -1,3 +1,4 @@
+import sqlite3
 from sqlite3 import connect, Connection, Cursor
 from typing import Optional
 
@@ -9,6 +10,7 @@ def get_db():
     global con, cur
     if con is None:
         con = connect('./mydb.db', check_same_thread=False)
+        con.row_factory = sqlite3.Row
         cur = con.cursor()
         # books 테이블 구성
         sql = ("create table if not exists books("
